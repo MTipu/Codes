@@ -1,0 +1,124 @@
+<?php 
+
+$conf = ["db" => ["server" => "localhost",  "database" => "test", "user" => "root", "password" => "123456" ] ];
+
+	@mysql_connect($conf["db"]["server"], $conf["db"]["user"], $conf["db"]["password"]) or die(mysql_error());
+	mysql_select_db($conf["db"]["database"] or die ("Unable To Connect") ); 
+
+#############################################################################################################
+#Insertion
+
+#############################################################################################################
+ 
+if(isset($_POST))
+{
+
+	$id = mysql_real_escape_string($id);
+	$name = mysql_real_escape_string($name);
+	$age  = mysql_real_escape_string($age);
+
+
+	if(isset($_POST))
+	{
+
+		$id = 'Null';
+	}
+	else
+	{
+
+		$id = '"' . $id . '"';
+	}
+
+
+
+	$sql = 'INSERT INTO `student` VALUES(' .$id. ',"' . $name . '", "' . $age .'")';
+}
+#############################################################################################################
+
+$sql = 'SELECT * FROM `student` ';
+$rs  = mysql_query($sql);
+
+	
+$grid = [];
+
+while($row = mysql_fetch_assoc($rs))
+{
+	$grid[] = $row;
+}
+
+
+
+
+ ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title> Practice </title>
+ </head>
+ <body>
+ 
+<form action="" method = "post">
+
+<table>
+			<tr>
+				<td>Id</td>
+				<td><input type="text" name="id" /></td>
+
+			</tr>
+
+
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name"></td>
+
+			</tr>
+
+			<tr>
+				<td>Age</td>
+
+				<td><input type="text" name="age"></td>
+
+			</tr>
+
+		<tr>
+			<td><input type="submit" value ="Submit" ></td>
+
+
+		</tr>
+
+</table>
+
+<table border = "" width = "500">
+
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Age</th>
+
+<?php 
+	foreach ($grid as $row) {
+		
+		echo ' <tr> ' . "\r\n";
+		echo '		<td>' . $row['id'] . '</td>' . "\r\n";
+		echo '      <td>' . $row['name']. '</td>' . "\r\n";
+		echo '      <tr>' . $row['age'] . '</td>'  . "\r\n";
+		
+	}
+
+
+
+ ?>
+
+	</tr>	
+
+
+
+</table>
+
+
+
+
+
+
+ </body>
+ </html>
